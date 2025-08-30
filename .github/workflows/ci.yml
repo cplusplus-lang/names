@@ -59,8 +59,8 @@ jobs:
     - name: Test CLI (Windows)
       if: runner.os == 'Windows'
       run: |
-        .\build\cli\Release\names.exe
-        .\build\cli\Release\names.exe 3
-        .\build\cli\Release\names.exe --number
-        .\build\cli\Release\names.exe 2 --number
-        .\build\cli\Release\names.exe --version
+        .\build\cli\names.exe
+        .\build\cli\names.exe 3
+        .\build\cli\names.exe --number
+        .\build\cli\names.exe 2 --number
+        .\build\cli\names.exe --version
