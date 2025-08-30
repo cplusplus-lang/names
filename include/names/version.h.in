@@ -1,0 +1,26 @@
+#pragma once
+
+#define NAMES_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define NAMES_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define NAMES_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define NAMES_VERSION_STRING "@PROJECT_VERSION@"
+
+namespace names {
+
+inline const char* version() {
+    return NAMES_VERSION_STRING;
+}
+
+inline int version_major() {
+    return NAMES_VERSION_MAJOR;
+}
+
+inline int version_minor() {
+    return NAMES_VERSION_MINOR;
+}
+
+inline int version_patch() {
+    return NAMES_VERSION_PATCH;
+}
+
+} // namespace names
