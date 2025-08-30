@@ -10,6 +10,7 @@ jobs:
   build-and-test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         include:
@@ -28,7 +29,16 @@ jobs:
       with:
         cmake-version: '3.20'
 
-    - name: Configure CMake
+    - name: Setup MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Configure CMake (Windows)
+      if: runner.os == 'Windows'
+      run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+    - name: Configure CMake (Unix)
+      if: runner.os != 'Windows'
       run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
@@ -49,8 +59,8 @@ jobs:
     - name: Test CLI (Windows)
       if: runner.os == 'Windows'
       run: |
-        .\build\cli\Release\names.exe
-        .\build\cli\Release\names.exe 3
-        .\build\cli\Release\names.exe --number
-        .\build\cli\Release\names.exe 2 --number
-        .\build\cli\Release\names.exe --version
+        .\build\cli\names.exe
+        .\build\cli\names.exe 3
+        .\build\cli\names.exe --number
+        .\build\cli\names.exe 2 --number
+        .\build\cli\names.exe --version
