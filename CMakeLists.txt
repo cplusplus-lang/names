@@ -20,7 +20,12 @@ configure_file(
     @ONLY
 )
 
-option(NAMES_BUILD_TESTS "Build tests" ON)
+# Disable tests in Release builds to avoid Catch2 dependency
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    option(NAMES_BUILD_TESTS "Build tests" OFF)
+else()
+    option(NAMES_BUILD_TESTS "Build tests" ON)
+endif()
 option(NAMES_BUILD_CLI "Build CLI executable" ON)
 
 add_subdirectory(src)
